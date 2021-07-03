@@ -9,8 +9,12 @@ public class Respuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "respuesta_id")
+    private Integer respuestaId;
 
+    @Column(name = "enunciado")
     private String texto;
+
+    @Column(name = "es_correcta")
     private boolean esCorrecta;
 
     @ManyToOne
@@ -37,9 +41,17 @@ public class Respuesta {
         return pregunta;
     }
 
+    public Integer getRespuestaId() {
+        return respuestaId;
+    }
+
+    public void setRespuestaId(Integer respuestaId) {
+        this.respuestaId = respuestaId;
+    }
+
     public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
-        this.pregunta.addRespuesta(this);
+        this.pregunta.addRespuesta(this); //bidireccional
 
     }
 
