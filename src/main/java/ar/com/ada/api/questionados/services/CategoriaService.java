@@ -27,7 +27,7 @@ public class CategoriaService {
 
     }
 
-    public boolean crear(Categoria categoria) { 
+    public boolean crear(Categoria categoria) {
         if (existe(categoria.getNombre()))
             return false;
 
@@ -41,14 +41,17 @@ public class CategoriaService {
 
     }
 
-
-    public void actualizar(Integer Id, CategoriaNuevaInfo categoriaNuevaInfo){
+    public void actualizar(Integer Id, CategoriaNuevaInfo categoriaNuevaInfo) {
 
         Categoria categoria = this.buscar(Id);
         categoria.setNombre(categoriaNuevaInfo.otroNombre);
         categoria.setDescripcion(categoriaNuevaInfo.otraDescripcion);
         repo.save(categoria);
 
-      
+    }
+
+    public void eliminar(Integer id){
+        Categoria categoria = this.buscar(id);
+        repo.delete(categoria);
     }
 }

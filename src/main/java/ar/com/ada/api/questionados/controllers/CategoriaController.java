@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,8 +53,9 @@ public class CategoriaController {
             return ResponseEntity.badRequest().body(response);
 
         }
+    }
         
-   /* @PutMapping("/categorias/{id}") //actualiza una categoria existente
+    @PutMapping("/categorias/{id}") //actualiza una categoria existente
     public ResponseEntity<GenericResponse> actualizar (@PathVariable Integer id, @RequestBody CategoriaNuevaInfo categoriaNuevaInfo){
     
         service.actualizar(id, categoriaNuevaInfo);
@@ -66,9 +68,19 @@ public class CategoriaController {
 
     }
 
-    }*/
+    @DeleteMapping("/categorias/{id}")
+    public ResponseEntity<GenericResponse>eliminar (@PathVariable Integer id){
 
+        service.eliminar(id);
+        GenericResponse respuesta = new GenericResponse();
 
+        respuesta.isOk = true;
+        respuesta.message = "Categoria eliminada";
 
+        return ResponseEntity.ok(respuesta);
+    }
 }
-}
+
+
+
+
