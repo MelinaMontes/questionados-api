@@ -1,13 +1,6 @@
 package ar.com.ada.api.questionados.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "respuesta")
@@ -21,7 +14,7 @@ public class Respuesta {
     private boolean esCorrecta;
 
     @ManyToOne
-    @JoinColumn(name = "pregunta_id" referencedColumnName ="pregunta_id")
+    @JoinColumn(name = "pregunta_id", referencedColumnName = "pregunta_id")
     private Pregunta pregunta;
 
     public String getTexto() {
@@ -47,7 +40,7 @@ public class Respuesta {
     public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
         this.pregunta.addRespuesta(this);
-        
+
     }
 
 }

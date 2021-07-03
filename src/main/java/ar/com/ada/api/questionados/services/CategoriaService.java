@@ -1,5 +1,7 @@
 package ar.com.ada.api.questionados.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,21 @@ public class CategoriaService {
     @Autowired
     CategoriaRepository repo;
 
-    public void nuevaCategoria (Categoria categoria){
-        repo.save(categoria);
+    public List<Categoria> traer() {
+        return repo.findAll();
     }
 
-    
-    
+    public Categoria buscar(Integer categoriaId) {
+
+        Categoria categoria = repo.findById(categoriaId.intValue());
+
+        return categoria;
+
+    }
+
+    public boolean existe(String nombre){
+        return repo.existsByNombre(nombre);
+
+    }
+
 }

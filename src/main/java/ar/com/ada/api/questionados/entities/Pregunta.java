@@ -2,14 +2,7 @@ package ar.com.ada.api.questionados.entities;
 
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "pregunta")
@@ -30,8 +23,16 @@ public class Pregunta {
     @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Respuesta> opciones = new ArrayList<>();
 
-    public Pregunta(String enunciado) {
-        this.enunciado = enunciado;
+    public void addRespuesta(Respuesta respuesta) {
+        this.opciones.add(respuesta);
+    }
+
+    public Integer getPreguntaId() {
+        return preguntaId;
+    }
+
+    public void setPreguntaId(Integer preguntaId) {
+        this.preguntaId = preguntaId;
     }
 
     public Categoria getCategoria() {
@@ -58,10 +59,6 @@ public class Pregunta {
 
     public void setOpciones(List<Respuesta> opciones) {
         this.opciones = opciones;
-    }
-
-    public void addRespuesta(Respuesta respuesta) {
-        this.opciones.add(respuesta);
     }
 
 }
