@@ -9,20 +9,19 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-//@Table(name = "categoria")
+@Table(name = "categoria")
 
 public class Categoria {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "categoria_id")
-    //private Integer categoriaId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "categoria_id")
+    private Integer categoriaId;
 
     private String nombre;
     private String descripcion;
 
-    //@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Pregunta> preguntas = new ArrayList<>();
 
     public String getNombre() {
@@ -47,6 +46,14 @@ public class Categoria {
 
     public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas = preguntas;
+    }
+
+    public Integer getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Integer categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
 }

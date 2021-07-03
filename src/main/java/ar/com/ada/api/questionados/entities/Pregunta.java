@@ -2,30 +2,37 @@ package ar.com.ada.api.questionados.entities;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
-//@Table(name = "pregunta")
+@Table(name = "pregunta")
 public class Pregunta {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "pregunta_id")
-    //private Integer preguntaId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pregunta_id")
+    private Integer preguntaId;
 
+    @Column(name = "enunciado")
+    private String enunciado;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
+    private Categoria categoria;
+
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Respuesta> opciones = new ArrayList<>();
 
     public Pregunta(String enunciado) {
         this.enunciado = enunciado;
     }
-
-    private Categoria categoria;
-
-    private String enunciado; 
-
-    private List<Respuesta> opciones = new ArrayList<>();
 
     public Categoria getCategoria() {
         return categoria;
@@ -33,6 +40,8 @@ public class Pregunta {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+        this.categoria.addPregunta(this);
+
     }
 
     public String getEnunciado() {
@@ -50,6 +59,9 @@ public class Pregunta {
     public void setOpciones(List<Respuesta> opciones) {
         this.opciones = opciones;
     }
-    
+
+    public void addRespuesta(Respuesta respuesta) {
+        this.opciones.add(respuesta);
+    }
 
 }
