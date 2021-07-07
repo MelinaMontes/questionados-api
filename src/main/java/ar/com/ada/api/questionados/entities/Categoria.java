@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categoria")
 
@@ -17,10 +19,11 @@ public class Categoria {
 
     private String nombre;
 
+    @Column (name = "descripcion")
     private String descripcion;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-
+    @JsonIgnore
     private List<Pregunta> preguntas = new ArrayList<>();
 
     public String getNombre() {
